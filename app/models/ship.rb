@@ -1,3 +1,4 @@
+require 'pry'
 class Ship
     attr_accessor :name, :type, :booty
 
@@ -5,21 +6,17 @@ class Ship
 
     def initialize(attributes)
         attributes.each do |k,v|
-            self.send("#{k}=", v) #if self.respond_to?(k)
+            self.send("#{k}=", v) if self.respond_to?(k)
         end
-        self.save
+        @@all << self
     end
 
     def self.all
-        @all
+        @@all
     end
 
     def self.clear
         @@all = []
-    end
-
-    def save
-        @@all << self
     end
 
 end
